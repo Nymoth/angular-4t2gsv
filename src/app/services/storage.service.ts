@@ -28,11 +28,15 @@ export class StorageService {
   }
 
   getAllTextures() {
-    return from(this.db.textures.toArray());
+    return from<any[]>(this.db.textures.toArray());
   }
 
   saveTexture(texture) {
     return from(this.db.textures.put(texture));
+  }
+
+  deleteTexture(id) {
+    return from(this.db.textures.delete(id));
   }
 
 }

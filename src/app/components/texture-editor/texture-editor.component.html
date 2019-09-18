@@ -1,6 +1,6 @@
 <ng-container *ngIf="!loading; else showLoading">
 <div class="list">
-  <div class="texture" *ngFor="let texture of textures">
+  <div class="texture" *ngFor="let texture of textures; let i = index">
     <label>
       Name:
       <input [(ngModel)]="texture.name">
@@ -8,8 +8,8 @@
     <br>
     <label>
       Texture:
-      <input type="file" (change)="upload($event.target.files)">
-      <img [src]="">
+      <input type="file" (change)="upload($event.target.files, texture)">
+      <img *ngIf="texture.render" [src]="texture.render" width="50" height="50">
     </label>
     <br>
     <label>
@@ -18,6 +18,7 @@
     </label>
     <br>
     <button (click)="save(texture)">Save</button>
+    <button (click)="delete(texture, i)">Delete</button>
     <hr>
   </div>
 </div>

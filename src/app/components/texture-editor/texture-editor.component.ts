@@ -30,9 +30,21 @@ export class TextureEditorComponent implements OnInit {
     this._storage.saveTexture(texture).subscribe(() => this._loadTextures());
   }
 
-  upload(files, texture) {
-    const file = files.item(0);
-    texture.render = file;
+  async upload(files, texture) {
+    const reader = new FileReader();
+    const p = new Promise(res => {
+      reader.onload = () => res(reader.result)
+    });
+    reader.readAsDataURL(files.item(0));
+    texture.render = await p;
+  }
+
+  delete(texture, idx) {
+    if (texture.id) {
+      this._storage.deleteTexture(texture.id).subscribe(() => this._loadTextures())
+    } else {
+      this.textures.splice(idx, 1);
+    }
   }
 
   private _loadTextures() {
@@ -40,6 +52,9 @@ export class TextureEditorComponent implements OnInit {
     this._storage.getAllTextures().subscribe(res => {
       this.textures = res;
       this.loading = false;
+      if (this.textures.length === 0) {
+        this.new();
+      }
     });
   }
 }
