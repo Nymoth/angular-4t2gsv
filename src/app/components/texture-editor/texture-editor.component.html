@@ -1,0 +1,26 @@
+<ng-container *ngIf="!loading; else showLoading">
+<div class="list">
+  <div class="texture" *ngFor="let texture of textures">
+    <label>
+      Name:
+      <input [(ngModel)]="texture.name">
+    </label>
+    <br>
+    <label>
+      Texture:
+      <input type="file" (change)="upload($event.target.files)">
+      <img [src]="">
+    </label>
+    <br>
+    <label>
+      Fallback:
+      <input type="color" [(ngModel)]="texture.fallback">
+    </label>
+    <br>
+    <button (click)="save(texture)">Save</button>
+    <hr>
+  </div>
+</div>
+<button (click)="new()">New</button>
+</ng-container>
+<ng-template #showLoading>Loading...</ng-template>
