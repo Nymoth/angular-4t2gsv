@@ -16,7 +16,14 @@
   content: '';
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   background: rgba(255,255,255,.1);
+}
+.cell-texture {
+  width: 100%;
+  height: 100%;
+  user-select: none;
 }
 .cell-coords {
   position: absolute;

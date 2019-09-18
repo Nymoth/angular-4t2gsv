@@ -1,22 +1,30 @@
-<div class="menu">
-  <button [ngClass]="{ active: editing }" [disabled]="editing" (click)="changeMode('edit')">Edit</button>
-  <button [ngClass]="{ active: deleting }" [disabled]="deleting" (click)="changeMode('delete')">Delete</button>
-  |
-  <select [ngModel]="currentMaterialIdx" (ngModelChange)="selectMaterial($event)">
-    <option *ngFor="let material of materials; let i = index" [value]="i">{{ material.name }}</option>
-  </select>
-  <button (click)="paintAll()">Base</button>
-  |
-  <button (click)="showCoords = !showCoords">Coords</button>
-</div>
-<div class="grid-wrapper">
-  <table (mouseup)="painting = false" cellspacing="0">
-    <tr *ngFor="let row of grid; let i = index">
-      <td *ngFor="let cell of row; let j = index" class="cell-wrapper">
-        <div class="cell" [ngStyle]="{background: cell ? cell.color : '#000'}" (mousedown)="painting = true; paint(i, j)" (mousemove)="paint(i, j)">
-          <span *ngIf="showCoords" class="cell-coords">{{ i }},{{ j }}</span>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
+<ng-container *ngIf="!loading; else showLoading">
+
+  <div class="menu">
+    <button [ngClass]="{ active: editing }" [disabled]="editing" (click)="changeMode('edit')">Edit</button>
+    <button [ngClass]="{ active: deleting }" [disabled]="deleting" (click)="changeMode('delete')">Delete</button>
+    |
+    <select [ngModel]="currentTextureIdx" (ngModelChange)="selectTexture($event)">
+      <option *ngFor="let texture of textures; let i = index" [value]="i">{{ texture.name }}</option>
+    </select>
+    <button (click)="paintAll()">Base</button>
+    |
+    <button (click)="showCoords = !showCoords">Coords</button>
+  </div>
+  <div class="grid-wrapper">
+    <table (mouseup)="painting = false" cellspacing="0">
+      <tr *ngFor="let row of grid; let i = index">
+        <td *ngFor="let cell of row; let j = index" class="cell-wrapper">
+          <div class="cell" (mousedown)="painting = true; paint(i, j)" (mousemove)="paint(i, j)">
+            <img class="cell-texture" *ngIf="cell.texture && cell.texture.render; else fallback" [src]="cell.texture.render">
+            <ng-template #fallback>
+              <div class="cell-texture" *ngIf="cell" [ngStyle]="{background: cell.texture && cell.texture.fallback || '#000'}"></div>
+            </ng-template>
+            <span *ngIf="showCoords" class="cell-coords">{{ i }},{{ j }}</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</ng-container>
+<ng-template #showLoading>Loading...</ng-template>

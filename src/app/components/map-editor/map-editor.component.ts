@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'pk-map-editor',
@@ -9,29 +10,32 @@ export class MapEditorComponent implements OnInit {
   width = 50;
   height = 50;
 
+  loading = true;
   editing = true;
   deleting = false;
   painting = false;
   showCoords = true;
 
-  materials = [
-    { name: 'Grass', color: '#74ce11' },
-    { name: 'Road', color: '#cc7f20' },
-    { name: 'Water', color: '#1598e4' }
-  ];
-  currentMaterial = null;
-  currentMaterialIdx = 0;
+  textures = [];
+  currentTexture = null;
+  currentTextureIdx = 0;
 
   grid = [];
+
+  constructor(private _storage: StorageService) { }
 
   ngOnInit() {
     for (let i = 0; i < this.width; i++) {
       this.grid[i] = [];
       for (let j = 0; j < this.height; j++) {
-        this.grid[i][j] = null;
+        this.grid[i][j] = {};
       }
     }
-    this.currentMaterial = this.materials[0];
+    this._storage.getAllTextures().subscribe(res => {
+      this.textures = res;
+      this.currentTexture = this.textures[0];
+      this.loading = false;
+    });
   }
 
   changeMode(mode) {
@@ -40,17 +44,17 @@ export class MapEditorComponent implements OnInit {
   }
 
   selectMaterial(idx) {
-    this.currentMaterialIdx = idx;
-    this.currentMaterial = this.materials[idx];
+    this.currentTextureIdx = idx;
+    this.currentTexture = this.textures[idx];
   }
 
   paint(x, y) {
     if (this.painting) {
       if (this.deleting) {
-        this.grid[x][y] = null;
+        this.grid[x][y].texture = null;
       }
       if (this.editing) {
-        this.grid[x][y] = this.currentMaterial;
+        this.grid[x][y].texture = this.currentTexture;
       }
     }
   }
@@ -58,7 +62,7 @@ export class MapEditorComponent implements OnInit {
   paintAll() {
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
-        this.grid[i][j] = this.currentMaterial;
+        this.grid[i][j].texture = this.currentTexture;
       }
     }
   }
