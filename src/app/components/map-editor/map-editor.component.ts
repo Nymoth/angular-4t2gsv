@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'pk-map-editor',
   templateUrl: './map-editor.component.html',
-  styleUrls: [ './map-editor.component.css' ]
+  styleUrls: [ './map-editor.component.css' ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapEditorComponent implements OnInit {
   width = 50;
@@ -22,7 +23,10 @@ export class MapEditorComponent implements OnInit {
 
   grid = [];
 
-  constructor(private _storage: StorageService) { }
+  constructor(
+    private _changeDetector: ChangeDetectorRef,
+    private _storage: StorageService
+  ) { }
 
   ngOnInit() {
     for (let i = 0; i < this.width; i++) {
@@ -35,17 +39,20 @@ export class MapEditorComponent implements OnInit {
       this.textures = res;
       this.currentTexture = this.textures[0];
       this.loading = false;
+      this._changeDetector.markForCheck();
     });
   }
 
   changeMode(mode) {
     this.editing = mode === 'edit';
     this.deleting = mode === 'delete';
+    this._changeDetector.markForCheck();
   }
 
   selectMaterial(idx) {
     this.currentTextureIdx = idx;
     this.currentTexture = this.textures[idx];
+    this._changeDetector.markForCheck();
   }
 
   paint(x, y) {
@@ -56,6 +63,7 @@ export class MapEditorComponent implements OnInit {
       if (this.editing) {
         this.grid[x][y].texture = this.currentTexture;
       }
+      this._changeDetector.markForCheck();
     }
   }
 
@@ -65,7 +73,6 @@ export class MapEditorComponent implements OnInit {
         this.grid[i][j].texture = this.currentTexture;
       }
     }
+    this._changeDetector.markForCheck();
   }
-
-
 }
