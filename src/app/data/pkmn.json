@@ -1,0 +1,112 @@
+{
+  "pidgey": {
+    "hp": {
+      "total": 100,
+      "current": 100
+    },
+    "speed": {
+      "current": 30,
+      "stage": 0
+    },
+    "evasion": {
+      "current": 100,
+      "stage": 0
+    },
+    "accuracy": {
+      "current": 100,
+      "stage": 0
+    },
+    "attack": {
+      "current": 10,
+      "stage": 0
+    },
+    "special_attack": {
+      "current": 5,
+      "stage": 0
+    },
+    "defense": {
+      "current": 10,
+      "stage": 0
+    },
+    "special_defense": {
+      "current": 5,
+      "stage": 0
+    },
+    "confused": false,
+    "status": null,
+    "level": 3,
+    "name": "Pidgey",
+    "types": ["normal", "flying"],
+    "moves": [
+      {
+        "move": "tackle",
+        "pp": {
+          "total": 35,
+          "current": 35
+        }
+      },
+      {
+        "move": "tail_whip",
+        "pp": {
+          "total": 40,
+          "current": 40
+        }
+      }
+    ]
+  },
+  "pikachu": {
+    "hp": {
+      "total": 100,
+      "current": 100
+    },
+    "speed": {
+      "current": 40,
+      "stage": 0
+    },
+    "evasion": {
+      "current": 100,
+      "stage": 0
+    },
+    "accuracy": {
+      "current": 100,
+      "stage": 0
+    },
+    "attack": {
+      "current": 15,
+      "stage": 0
+    },
+    "special_attack": {
+      "current": 10,
+      "stage": 0
+    },
+    "defense": {
+      "current": 15,
+      "stage": 0
+    },
+    "special_defense": {
+      "current": 10,
+      "stage": 0
+    },
+    "confused": false,
+    "status": null,
+    "level": 5,
+    "name": "Pikachu",
+    "types": ["electric"],
+    "moves": [
+      {
+        "move": "thunder_shock",
+        "pp": {
+          "total": 20,
+          "current": 20
+        }
+      },
+      {
+        "move": "quick_attack",
+        "pp": {
+          "total": 25,
+          "current": 25
+        }
+      }
+    ]
+  }
+}

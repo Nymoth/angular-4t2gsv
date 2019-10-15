@@ -1,1 +1,10 @@
-<pk-map-editor></pk-map-editor>
+<button (click)="screen = 'combat'">Combat</button>
+<button (click)="screen = 'map-editor'">Map editor</button>
+<button (click)="screen = 'texture-editor'">Texture editor</button>
+<hr>
+<div [ngSwitch]="screen">
+  <pk-combat *ngSwitchCase="combat"></pk-combat>
+  <pk-texture-editor *ngSwitchCase="texture-editor"></pk-texture-editor>
+  <pk-map-editor *ngSwitchCase="map-editor"></pk-map-editor>
+  <div *ngSwitchDefault>choose screen..</div>
+</div>

@@ -1,0 +1,58 @@
+{
+  "struggle": {
+    "name": "Struggle",
+    "nature": "attacl",
+    "element": null,
+    "kind": "physical",
+    "damage": 50,
+    "accuracy": 100,
+    "extra": {
+      "kind": "special",
+      "subject": "recoil",
+      "amount": "25%"
+    }
+  },
+  "tackle": {
+    "name": "Tackle",
+    "nature": "attack",
+    "element": "normal",
+    "kind": "physical",
+    "damage": 35,
+    "accuracy": 85,
+    "priority": 0
+  },
+  "tail_whip": {
+    "name": "Tail whip",
+    "nature": "effect",
+    "element": "normal",
+    "target": "rival",
+    "subject": "stat",
+    "stat": "attack",
+    "stages": -1,
+    "accuracy": 100,
+    "priority": 0
+  },
+  "thunder_shock": {
+    "name": "Thunder shock",
+    "nature": "attack",
+    "element": "electric",
+    "kind": "special",
+    "damage": 40,
+    "accuracy": 100,
+    "priority": 0,
+    "extra": {
+      "type": "effect",
+      "subject": "paralysis",
+      "chance": 10
+    }
+  },
+  "quick_attack": {
+    "name": "Quick attack",
+    "nature": "attack",
+    "element": "normal",
+    "kind": "physical",
+    "damage": 40,
+    "accuracy": 100,
+    "priority": 1
+  }
+}
